@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: #fff;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #666;
+  border-radius: 5px;
+  background-color: #444;
+  color: #fff;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #444;
+  border-radius: 5px;
+}
+
+li span {
+  margin-right: 10px;
+}
+
+li button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>To-Do List</h1>
+  <input type="text" id="taskInput" placeholder="Add new task...">
+  <button onclick="addTask()">Add Task</button>
+  <ul id="taskList" onclick="editTask(event)">
+    <!-- Tasks will be added dynamically here -->
+  </ul>
+</div>
+
+<script>
+    // script.js
+
+function addTask() {
+  var taskInput = document.getElementById("taskInput");
+  var taskList = document.getElementById("taskList");
+  var task = taskInput.value;
+  
+  if (task.trim() === "") {
+    alert("Please enter a task.");
+    return;
+  }
+  
+  var li = document.createElement("li");
+  li.innerHTML = '<span>' + task + '</span><button onclick="deleteTask(this)">Delete</button>';
+  
+  taskList.appendChild(li);
+  
+  taskInput.value = "";
+}
+
+function deleteTask(element) {
+  var taskList = document.getElementById("taskList");
+  var li = element.parentElement;
+  
+  taskList.removeChild(li);
+}
+
+function editTask(event) {
+  var target = event.target;
+  
+  if (target.tagName === "SPAN") {
+    var newText = prompt("Edit task:", target.innerText);
+    
+    if (newText !== null) {
+      target.innerText = newText;
+    }
+  }
+}
+
+</script>
+</body>
+</html>
